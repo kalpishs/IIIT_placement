@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{=T.accepted_language or 'en'}}"> <!--<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="{{=request.application}}">
+    <meta name="google-site-verification" content="">
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/bootstrap-theme.min.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/style.css')}}"/>
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    <title>Placement</title>
+    <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
+    {{block head}}{{end}}
+    </head>
+    <body>
+        <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+        <div class="flash alert alert-dismissable">{{=response.flash or ''}}</div>
+        <div class="wrapper"> 
+  
+  <!-- Header Starts -->
+  <div class="header">
+    <div class="header-container">
+      <div class="logo"> <a href="#">Placement IIIT</a> </div>
+      <div class="toll-free">
+        <p>International Institute of Information Technology, Hyderabad</p>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+ <div class="nav">
+    <div class="nav-in">
+      <ul>
+        <li class="last"><a href="#">Home </a></li>
+        <li><a href="#">About us </a></li>
+        <li><a href="#">Services </a></li>
+        <li><a href="#">Careers </a></li>
+        <li><a href="#">Blog </a></li>
+        <li class="no_bg ped"><a href="#">Contact us</a></li>
+      </ul>
+       <ul class="nav navbar-nav navbar-right" style="position: relative;">
+            {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
+          </ul> 
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="container-in"> <img src="images/container-bg.gif" width="940" height="327" alt="img" />
+    </div>
+    </div>
+    <div class="container">
+        {{include}}
+    </div>
+    <div class="footer">
+    <div class="footer-in">
+      <div class="copy">
+        <p>Copyright &copy; 2015 IIITWebTeam. All rights reserved. Design by <a href="" target="_blank" rel="nofollow">Kalpish &amp; ayush</a></p>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>        
+        <!-- The javascript =============================== -->
+    <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
+    {{block page_js}}{{end page_js}}
+    {{if response.google_analytics_id:}}
+    <!-- Analytics ==================================== -->
+    <script src="{{=URL('static','js/analytics.min.js')}}"></script>
+    <script type="text/javascript">
+      analytics.initialize({
+      'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
+      });
+    </script>
+    {{pass}}
+    <!-- Share ============================y============ -->
+    <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
+        </div>
+    </body>
+</html>

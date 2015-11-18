@@ -1,0 +1,22 @@
+{{extend 'mylayout.html'}}
+<h2 style="text-align: center;">{{=message}}</h2>
+<br/>
+<div class="read1123">
+        <div class="read1-img1123"> <img src="../static/images/read2-img.png" width="32" height="30" alt="img" /> </div>
+        <h3>Company</h3>
+        <a href="{{=URL('c_controller','home',args='c')}}"style="width: 157px;">company login and register</a>
+ </div>
+<div class="read1123">
+        <div class="read1-img1123"> <img src="../static/images/read2-img.png" width="32" height="30" alt="img" /> </div>
+        <h3>Student</h3>
+        <a href="{{=URL('s_controller','home',args='c')}}" style="width: 157px;">Student login and register</a>
+ </div>
+<div class="read1123 last123">
+        <div class="read1-img1123"> <img src="../static/images/read2-img.png" width="32" height="30" alt="img" /> </div>
+        <h3>TPO</h3>
+        <a href="{{=URL('tpo','home',args='t')}}" style="width: 157px;">TPO login</a>
+ </div>
+
+<div class="clear123"></div>
+<div class="welcome123">
+</div>

@@ -1,0 +1,2 @@
+{{extend 'layout.html'}}
+<h1>This is the c_controller/reg_c.html template</h1>

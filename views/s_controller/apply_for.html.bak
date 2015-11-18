@@ -1,0 +1,44 @@
+{{extend 'mylayout.html'}}
+<div class="welcome123">
+<form method="post" action="{{=URL('s_controller','apply_form')}}">
+    
+  
+    <div class="CSSTableGenerator" >
+                <table >
+                    <tr>
+                        <td>
+                           Company Name
+                        </td>
+                        <td >
+                            Profile
+                        </td>
+                        <td>
+                           Apply
+                        </td>
+                    </tr>
+                  {{
+                    for r in string:
+                        company_details=r.split(',')
+                    if str(company_details[2])  not in listing_appliyed_for_str:
+                        
+                    }}
+                    <tr>
+                        <td >
+                           {{=company_details[0]}}
+                        </td>
+                        <td>
+                             {{=company_details[1]}}
+                        </td>
+                            <td>
+                           <input type="checkbox" name="{{=company_details[2]}}" value="{{=company_details[2]}}">
+                        </td>
+                    </tr>
+                     {{pass}}
+                    <tr>
+                            <td colspan="3"><input type="submit" value="Submit"></td>
+                   </tr>
+                               
+                    </table>
+        
+            </div>
+  </form>

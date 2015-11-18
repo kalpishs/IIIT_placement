@@ -1,0 +1,486 @@
+/*====================================== reset.css is here ========================================*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset, img {
+	border: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+	font-style: normal;
+	font-weight: normal;
+}
+ol, ul {
+	list-style: none;
+}
+caption, th {
+	text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: bold;
+}
+q:before, q:after {
+	content: '';
+}
+abbr, acronym {
+	border: 0;
+}
+.clear123 {
+	clear: both;
+	font-size: 0px;
+	line-height: 0px;
+	display: block;
+}
+.last123 {
+	margin: 0 !important;
+}
+.pad_last123 {
+	padding: 0 !important;
+}
+.no_bg123 {
+	background: none !important;
+}
+/**************************************************************************************/
+a {
+	color: #000;
+	text-decoration: none;
+	outline: 0 none;
+}
+a:hover {
+	color: #000;
+	text-decoration: none;
+}
+h1 {
+	font-size: 24px;
+}
+h2 {
+	font-size: 22px;
+}
+h3 {
+	font-size: 18px;
+}
+h4 {
+	font-size: 16px;
+}
+h5 {
+	font-size: 14px;
+}
+h6 {
+	font-size: 12px;
+}
+/*----------------------------------------------------------------------------------*/
+html {
+}
+body {
+	color: #b1b1b1;
+	font-family: "Arial", Verdana, Tahoma;
+	font-size: 12px;
+	background: #f4f4f4;
+}
+.flt_lt {
+	float: left;
+	display: inline;
+}
+.flt_rt {
+	float: right;
+	display: inline;
+}
+/* ---------------------------------------------------------------------------------*/
+
+
+/* ----------------------- layout ----------*/
+.wrapper123 {
+	margin: 0 auto;
+	min-width: 980px;
+}
+.main_content123 {
+}
+/* ------------------ HEADER HERE -------------------*/
+.header123 {
+	width: 100%;
+	background: #1ca6d7;
+}
+.header-container123 {
+	width: 980px;
+	margin: 0 auto;
+	padding: 22px 0;
+}
+.header-container123 .logo123 {
+	display: inline-block;
+	float: left;
+	padding: 0 0 0 34px;
+}
+.header-container123 .logo123 a {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 38px;
+	color: #ffffff;
+	font-weight: normal;
+	display: block;
+}
+.header-container123 .toll-free123 {
+	display: inline-block;
+	float: right;
+	padding: 20px 27px 0 0;
+}
+.header-container123 .toll-free123 p {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: normal;
+	display: inline-block;
+}
+/*-------------------------------------------*/
+
+/* ------------------------- NAVIGATION HERE ---------------*/
+.nav123 {
+	width: 100%;
+	background: url(../images/nav-bg.jpg) repeat-x;
+}
+.nav-in123 {
+	width: 980px;
+	margin: 0 auto;
+}
+.nav-in123 ul {
+	width: 727px;
+	margin: 0 auto;
+}
+.nav-in123 ul li {
+	float: left;
+	display: inline-block;
+	background: url(../images/nav-li-bg.png) no-repeat right center;
+	padding: 16px 37px 16px 0;
+	margin: 0 0 0 41px;
+}
+.nav-in123 ul li a {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 16px;
+	color: #ffffff;
+	display: inline-block;
+}
+.nav-in123 ul li a span {
+}
+.nav-in123 ul li a:hover {
+   color:  #80dfff;
+   display: inline-block;
+}
+.ped123 {
+	padding-right: 0 !important;
+}
+/* ---------------------------------------------------------*/
+
+/* ------------------------ MIAN CONTENT HERE --------------*/
+.container123 {
+	width: 980px;
+	margin: 0 auto;
+	padding-top: 20px;
+	padding-right: 0;
+	padding-left: 0;
+	padding-bottom: 24px;
+	background: #ffffff;
+}
+.container-in123 {
+	width: 940px;
+	margin: 0 auto;
+}
+.container-in123 img {
+	padding-top: 0;
+	padding-right: 0;
+	padding-left: 0;
+	padding-bottom: 20px;
+}
+.read1123 {
+	width: 301px;
+	background: #eeeeee;
+	float: left;
+	padding: 26px 0 23px 0;
+	margin: 0 18px 0 0;
+}
+.read1-img1123 {
+	width: 32px;
+	height: 30px;
+	margin-top: 0;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 22px;
+}
+.read1123 h3 {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #333333;
+	font-weight: normal;
+	text-align: center;
+	padding: 0 0 22px;
+}
+.read1123 p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+	font-weight: normal;
+	text-align: center;
+	line-height: 20px;
+	padding: 0 9px 27px 9px;
+}
+.read1123 a {
+	width: 97px;
+	margin: 0 auto;
+	background: #1ca6d7;
+	border-radius: 6px;
+	position: relative;
+	behavior: url(PIE.htc);
+	display: block;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #ffffff;
+	font-size: 11px;
+	padding: 7px 0 6px;
+}
+.read1123 a:hover {
+	text-decoration: underline;
+}
+.welcome123 {
+	margin-top: 20px;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 32px;
+	padding: 22px 0 26px 18px;
+	background-color: #f6f6f6;
+}
+.welcome123 h5 {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	color: #333333;
+	display: inline-block;
+	padding: 0 0 18px;
+}
+.welcome123 p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #333333;
+	font-weight: normal;
+	display: inline-block;
+	padding: 0 34px 0 0;
+	line-height: 20px;
+}
+.welcome123 a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11px;
+	color: #333333;
+	display: inline-block;
+	text-decoration: underline;
+	line-height: 20px;
+	margin: 0 0 0 5px;
+}
+.welcome123 a:hover {
+	text-decoration: none;
+}
+.bottom-cont1123 {
+	width: 264px;
+	float: left;
+	padding: 0 0 0 20px;
+	margin: 0 43px 0 0;
+}
+.bottom-cont1123 h6 {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	color: #333333;
+	display: inline-block;
+	padding: 0 0 13px;
+}
+.bottom-cont1123 p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+	color: #666666;
+	display: inline-block;
+	line-height: 20px;
+	padding: 0 0 10px 0;
+}
+.bottom-cont1123 ul {
+	display: inline-block;
+}
+.bottom-cont1123 ul li {
+	display: inline-block;
+}
+.bottom-cont1123 ul li a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+	padding: 0 0 0 18px;
+	background: url(../images/arrow-li.png) no-repeat left center;
+	color: #1ca6d7;
+	display: block;
+	line-height: 24px;
+}
+.bottom-cont1123 ul li a:hover {
+	text-decoration: underline;
+}
+.bottom-cont1123 span {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+	color: #1ca6d7;
+	display: block;
+	line-height: 24px;
+	;
+	background: url(../images/arrow-li.png) no-repeat left center;
+	padding: 0 0 0 13px;
+}
+/* ---------------------------------------------------------*/
+
+/* ------------------ FOOTER HERE --------------------------*/
+.footer123 {
+	width: 100%;
+	background: #333333;
+}
+.footer-in123 {
+	width: 980px;
+	margin: 0 auto;
+	padding: 36px 0 36px 0;
+}
+.social-icons123 {
+	float: left;
+	padding: 0 0 0 28px;
+	display: inline-block;
+}
+.social-icons123 ul {
+	float: left;
+	display: inline-block;
+}
+.social-icons123 ul li {
+	float: left;
+	display: inline-block;
+	margin: 0 10px 0 0;
+}
+.social-icons123 ul li a {
+	display: block;
+}
+.copy123 {
+	float: right;
+	display: inline-block;
+	padding: 0 15px 0 0;
+}
+.copy123 p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 11px;
+	color: #999999;
+	display: inline-block;
+}
+.copy123 a {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 11px;
+	color: #999999;
+	display: inline-block;
+	text-decoration: underline;
+}
+.copy123 a:hover {
+	text-decoration: none;
+}
+/* ---------------------------------------------------------*/
+.CSSTableGenerator {
+	margin:0px;padding:0px;
+	width:96%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+	
+	-moz-border-radius-bottomleft:2px;
+	-webkit-border-bottom-left-radius:2px;
+	border-bottom-left-radius:2px;
+	
+	-moz-border-radius-bottomright:2px;
+	-webkit-border-bottom-right-radius:2px;
+	border-bottom-right-radius:2px;
+	
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+	border-top-right-radius:2px;
+	
+	-moz-border-radius-topleft:2px;
+	-webkit-border-top-left-radius:2px;
+	border-top-left-radius:2px;
+}.CSSTableGenerator table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:99.9%;
+	height:100%;
+	margin:0px;padding:0px;
+}.CSSTableGenerator tr:last-child td:last-child {
+	-moz-border-radius-bottomright:2px;
+	-webkit-border-bottom-right-radius:2px;
+	border-bottom-right-radius:2px;
+}
+.CSSTableGenerator table tr:first-child td:first-child {
+	-moz-border-radius-topleft:2px;
+	-webkit-border-top-left-radius:2px;
+	border-top-left-radius:2px;
+}
+.CSSTableGenerator table tr:first-child td:last-child {
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px;
+	border-top-right-radius:2px;
+}.CSSTableGenerator tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:2px;
+	-webkit-border-bottom-left-radius:2px;
+	border-bottom-left-radius:2px;
+}.CSSTableGenerator tr:hover td{
+	
+}
+.CSSTableGenerator tr:nth-child(odd){ background-color:#1ca6d7; }
+.CSSTableGenerator tr:nth-child(even)    { background-color:#ffffff; }.CSSTableGenerator td{
+	vertical-align:middle;
+	
+	
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	padding:8px;
+	font-size:14px;
+	font-family:Times New Roman;
+	font-weight:normal;
+	color:#000000;
+}.CSSTableGenerator tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.CSSTableGenerator tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.CSSTableGenerator tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.CSSTableGenerator tr:first-child td{
+		background:-o-linear-gradient(bottom, #1ca6d7 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1ca6d7), color-stop(1, #003f7f) );
+	background:-moz-linear-gradient( center top, #1ca6d7 5%, #003f7f 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#1ca6d7", endColorstr="#003f7f");	background: -o-linear-gradient(top,#1ca6d7,003f7f);
+
+	background-color:#1ca6d7;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:19px;
+	font-family:Times New Roman;
+	font-weight:bold;
+	color:#ffffff;
+}
+.CSSTableGenerator tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #1ca6d7 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1ca6d7), color-stop(1, #003f7f) );
+	background:-moz-linear-gradient( center top, #1ca6d7 5%, #003f7f 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#1ca6d7", endColorstr="#003f7f");	background: -o-linear-gradient(top,#1ca6d7,003f7f);
+
+	background-color:#1ca6d7;
+}
+.CSSTableGenerator tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+.CSSTableGenerator tr:first-child td:last-child{
+	border-width:0px 0px 1px 1px;
+}

@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+db.define_table('company',
+                Field('contact_person'),
+                Field('address',requires=IS_NOT_EMPTY()),
+                Field('c_id','reference auth_user')
+               )
+db.define_table('course',
+                Field('course_name',requires=IS_NOT_EMPTY())
+               )
+db.define_table('branch',
+               Field('branch_name',requires=IS_NOT_EMPTY()),
+               Field('course_ref',db.course)
+              )
+
+
+db.define_table('student',
+                Field('roll_num',IS_NOT_EMPTY()),
+                Field('course_id',db.branch)
+                )
