@@ -1,0 +1,551 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.TypeError'> cannot concatenate 'str' and 'int' objects"
+p3
+sS'layer'
+p4
+S'/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# try something like\ndef home(): \n    auth.settings.register_next = URL(\'c_controller\',\'after_reg\', args=\'company\')\n    session.user_grp=request.args(0)\n    message=session.user_grp\n    login_form=auth.login()\n    return locals()\n\n\ndef reg_c():\n    def Myfuc2(form):\n            s=\'@\'+form.vars.first_name\n            pos2 = form.vars.email.find(s)\n            if pos2 == -1:\n                form.errors.email=\'not valid company email\'\n    message=session.user_grp\n    auth.settings.register_onvalidation.append(Myfuc2)\n    c_reg=auth.register()\n    return locals()\n\n@auth.requires_login()\ndef after_reg():\n    message="hello"\n    return locals()\n@auth.requires_login()\n@auth.requires_membership(\'company_group\')\ndef step2_reg():\n    db.company.c_id.writable=False\n    db.company.c_id.readable=False\n    step2form=SQLFORM(db.company).process()\n    if step2form.accepted:\n        redirect(URL(\'c_controller\',\'company_home\'))\n    return locals()\n@auth.requires_login()\n@auth.requires_membership(\'company_group\')\ndef company_home():\n    query=db.company.c_id==auth.user_id\n    count_var=db(query).count()\n    if count_var==0:\n        redirect(URL(\'c_controller\',\'step2_reg\'))\n    else:\n        pass\n    mssage="company Home"\n    return locals()\n\ndef myvalid(form_posting):\n    x=form_posting.vars.cb1\n    if x:\n        response.flash=\'btech cse\'\n    else:\n        response.flash=\'none\'\n        \ndef form_valid(form_posting):\n    rows=db(db.company_posting.id).select(db.company_posting.id.max())\n    rows=str(rows)\n    rows=rows.split()\n    cnt=rows[1]\n    cnt=int(cnt)+1\n#    session.flash=cnt\n#    response.flash=cnt\n    if form_posting.vars.bcse:\n        db.jobs_posted.insert(course_id=6,job=cnt)\n    if form_posting.vars.bece:\n        db.jobs_posted.insert(course_id=7,job=cnt)\n    if form_posting.vars.mcse:\n        db.jobs_posted.insert(course_id=8,job=cnt)\n    if form_posting.vars.mcsis:\n        db.jobs_posted.insert(course_id=9,job=cnt)\n    if form_posting.vars.mcl:\n        db.jobs_posted.insert(course_id=10,job=cnt)\n    if form_posting.vars.mvlsi:\n        db.jobs_posted.insert(course_id=11,job=cnt)\n    if form_posting.vars.mcase:\n        db.jobs_posted.insert(course_id=12,job=cnt)\n    if form_posting.vars.mbio:\n        db.jobs_posted.insert(course_id=13,job=cnt)\n    if form_posting.vars.mscse:\n        db.jobs_posted.insert(course_id=14,job=cnt)\n    if form_posting.vars.msece:\n        db.jobs_posted.insert(course_id=15,job=cnt)\n    if form_posting.vars.add_more:\n        session.flag_add_more=1\n    else:\n        session.flag_add_more=0\n@auth.requires_login()\n@auth.requires_membership(\'company_group\')        \ndef posting():\n    db.company_posting.c_id.writable=False\n    db.company_posting.c_id.readable=False\n    db.company_posting.display.writable=False\n    db.company_posting.display.readable=False\n    form_posting=SQLFORM(db.company_posting)\n    cb1=TR(LABEL(\'B.Tech (CSE)\',_class=\'branch\'), INPUT(_name=\'bcse\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb1)\n    cb2=TR(LABEL(\'B.Tech (ECE)\',_class=\'branch\'), INPUT(_name=\'bece\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb2)\n    cb3=TR(LABEL(\'M.Tech (CSE)\',_class=\'branch\'), INPUT(_name=\'mcse\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb3)\n    cb4=TR(LABEL(\'M.Tech (CSIS)\',_class=\'branch\'), INPUT(_name=\'mcsis\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb4)\n    cb5=TR(LABEL(\'M.Tech (CL)\',_class=\'branch\'), INPUT(_name=\'mcl\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb5)\n    cb6=TR(LABEL(\'M.Tech (VLSI)\',_class=\'branch\'), INPUT(_name=\'mvlsi\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb6)\n    cb7=TR(LABEL(\'M.Tech (CASE)\',_class=\'branch\'), INPUT(_name=\'mcase\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb7)\n    cb8=TR(LABEL(\'M.Tech (Bio Infomatics)\',_class=\'branch\'), INPUT(_name=\'mbio\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb8)\n    cb9=TR(LABEL(\'MS (CSE)\',_class=\'branch\'), INPUT(_name=\'mscse\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb9)\n    cb10=TR(LABEL(\'MS (ECE)\',_class=\'branch\'), INPUT(_name=\'msece\',value=False,_type=\'checkbox\'))\n    form_posting[0].insert(-1,cb10)\n    cb11=TR(LABEL(\'add More\',_id=\'l_add_more\',_class=\'add_more_lable\'), INPUT(_name=\'add_more\',value=False,_type=\'checkbox\',_id=\'add_more\'))\n    form_posting[0].insert(-1,cb11)\n    # if form_posting.process(onvalidation=myvalid).accepted:\n    #    session.flash=\'accepted\'\n    if form_posting.process(onvalidation=form_valid).accepted:\n        rows=db(db.company_posting.c_id==auth.user_id).select(db.company_posting.id.max())\n        rows=str(rows)\n        rows=rows.split()\n        cnt=rows[1]\n        query_filename=db(db.company_posting.id==cnt).select(db.company_posting.CSV)\n        string=str(query_filename)\n        string=string.split()\n        if string[1]==\'""\':\n            pass\n            #flaging\n        else:\n            path=str("applications/scripting_project/uploads/"+string[1])\n            db.csv_upload.import_from_csv_file(open(path,\'rb\'))\n            query_to_retrive=db(db.csv_upload.c_id==auth.user_id).select(db.csv_upload.id.max())\n            query_to_retrive=str(query_to_retrive)\n            query_to_retrive=query_to_retrive.split()\n            id_retrived=query_to_retrive[1]\n            db(db.csv_upload.id==id_retrived).update(company_posting_id=cnt)\n            pass\n        session.flash=session.flag_add_more\n        response.flash=\'accepted\'+ session.flag_add_more\n    return locals()\n\nresponse._vars=response._caller(posting)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__hash__'
+p12
+S"<method-wrapper '__hash__' of exceptions.TypeError object>"
+p13
+sS'__setattr__'
+p14
+S"<method-wrapper '__setattr__' of exceptions.TypeError object>"
+p15
+sS'__reduce_ex__'
+p16
+S'<built-in method __reduce_ex__ of exceptions.TypeError object>'
+p17
+sS'__getslice__'
+p18
+S"<method-wrapper '__getslice__' of exceptions.TypeError object>"
+p19
+sS'__getitem__'
+p20
+S"<method-wrapper '__getitem__' of exceptions.TypeError object>"
+p21
+sS'__setstate__'
+p22
+S'<built-in method __setstate__ of exceptions.TypeError object>'
+p23
+sS'args'
+p24
+S'("cannot concatenate \'str\' and \'int\' objects",)'
+p25
+sS'__reduce__'
+p26
+S'<built-in method __reduce__ of exceptions.TypeError object>'
+p27
+sS'__str__'
+p28
+S"<method-wrapper '__str__' of exceptions.TypeError object>"
+p29
+sS'__format__'
+p30
+S'<built-in method __format__ of exceptions.TypeError object>'
+p31
+sS'__getattribute__'
+p32
+S"<method-wrapper '__getattribute__' of exceptions.TypeError object>"
+p33
+sS'__class__'
+p34
+S"<type 'exceptions.TypeError'>"
+p35
+sS'__unicode__'
+p36
+S'<built-in method __unicode__ of exceptions.TypeError object>'
+p37
+sS'__delattr__'
+p38
+S"<method-wrapper '__delattr__' of exceptions.TypeError object>"
+p39
+sS'__subclasshook__'
+p40
+S'<built-in method __subclasshook__ of type object>'
+p41
+sS'__repr__'
+p42
+S"<method-wrapper '__repr__' of exceptions.TypeError object>"
+p43
+sS'__dict__'
+p44
+S'{}'
+p45
+sS'__sizeof__'
+p46
+S'<built-in method __sizeof__ of exceptions.TypeError object>'
+p47
+sS'__doc__'
+p48
+S"'Inappropriate argument type.'"
+p49
+sS'__init__'
+p50
+S"<method-wrapper '__init__' of exceptions.TypeError object>"
+p51
+sS'__new__'
+p52
+S'<built-in method __new__ of type object>'
+p53
+ssS'evalue'
+p54
+S"cannot concatenate 'str' and 'int' objects"
+p55
+sS'request'
+p56
+cgluon.html
+XML_unpickle
+p57
+(S's\xa3`\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">ajax</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">application</td><td style="vertical-align:top;">:</td><td><div>scripting_project</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cid</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">controller</td><td style="vertical-align:top;">:</td><td><div>c_controller</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_admin</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-0107671c-ed09-4c12-958a-e404c3f6e556<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_scripting_project</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_welcome</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-ccc57e65-7659-4ca4-916c-7d53e4f7fd72<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">env</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>1371</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>multipart/form-data; boundary=---------------------------1897532952262688875479859426</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_ENCODING</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_ACCEPT_LANGUAGE</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONNECTION</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_LENGTH</td><td style="vertical-align:top;">:</td><td><div>1371</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_CONTENT_TYPE</td><td style="vertical-align:top;">:</td><td><div>multipart/form-data; boundary=---------------------------1897532952262688875479859426</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_COOKIE</td><td style="vertical-align:top;">:</td><td><div>session_id_welcome=127.0.0.1-ccc57e65-7659-4ca4-916c-7d53e4f7fd72; session_id_admin=127.0.0.1-0107671c-ed09-4c12-958a-e404c3f6e556; session_id_scripting_project=127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_HOST</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_REFERER</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">HTTP_USER_AGENT</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">PATH_INFO</td><td style="vertical-align:top;">:</td><td><div>/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">QUERY_STRING</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_ADDR</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REMOTE_PORT</td><td style="vertical-align:top;">:</td><td><div>36139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">REQUEST_METHOD</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SCRIPT_NAME</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_NAME</td><td style="vertical-align:top;">:</td><td><div>kalpish-INVALID</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PORT</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_PROTOCOL</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">SERVER_SOFTWARE</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/kalpish/web2py/applications/scripting_project/&#x27;, &#x27;/home/kalpish/web2py/applications/admin/&#x27;, &#x27;/home/kalpish/web2py/applications/welcome/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x7f17b552e200: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;scheduler_groups&#x27;: None, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;kalpish-INVALID&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;print_errors&#x27;: False, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/kalpish/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;gae&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_length</td><td style="vertical-align:top;">:</td><td><div>1371</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">content_type</td><td style="vertical-align:top;">:</td><td><div>multipart/form-data; boundary=---------------------------1897532952262688875479859426</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept</td><td style="vertical-align:top;">:</td><td><div>text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_encoding</td><td style="vertical-align:top;">:</td><td><div>gzip, deflate</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_accept_language</td><td style="vertical-align:top;">:</td><td><div>en-US,en;q=0.5</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_connection</td><td style="vertical-align:top;">:</td><td><div>keep-alive</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_length</td><td style="vertical-align:top;">:</td><td><div>1371</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_content_type</td><td style="vertical-align:top;">:</td><td><div>multipart/form-data; boundary=---------------------------1897532952262688875479859426</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_cookie</td><td style="vertical-align:top;">:</td><td><div>session_id_welcome=127.0.0.1-ccc57e65-7659-4ca4-916c-7d53e4f7fd72; session_id_admin=127.0.0.1-0107671c-ed09-4c12-958a-e404c3f6e556; session_id_scripting_project=127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_host</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1:8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_referer</td><td style="vertical-align:top;">:</td><td><div>http://127.0.0.1:8000/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">http_user_agent</td><td style="vertical-align:top;">:</td><td><div>Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>kalpish-INVALID</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path_info</td><td style="vertical-align:top;">:</td><td><div>/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">query_string</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_addr</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remote_port</td><td style="vertical-align:top;">:</td><td><div>36139</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_method</td><td style="vertical-align:top;">:</td><td><div>POST</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">request_uri</td><td style="vertical-align:top;">:</td><td><div>/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">script_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_name</td><td style="vertical-align:top;">:</td><td><div>kalpish-INVALID</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_port</td><td style="vertical-align:top;">:</td><td><div>8000</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_protocol</td><td style="vertical-align:top;">:</td><td><div>HTTP/1.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">server_software</td><td style="vertical-align:top;">:</td><td><div>Rocket 1.2.6</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_path</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.12.3-stable+timestamp.2015.08.19.00.18.03</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f17bc50d1e0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x7f17b57bebb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f17b0081a50&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi.version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_errors</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;&lt;stderr&gt;&#x27;, mode &#x27;w&#x27; at 0x7f17bc50d1e0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_file_wrapper</td><td style="vertical-align:top;">:</td><td><div>&lt;class wsgiref.util.FileWrapper at 0x7f17b57bebb0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_input</td><td style="vertical-align:top;">:</td><td><div>&lt;socket._fileobject object at 0x7f17b0081a50&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multiprocess</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_multithread</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_run_once</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_url_scheme</td><td style="vertical-align:top;">:</td><td><div>http</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi_version</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>1</div></td></tr><tr><td><div>0</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">extension</td><td style="vertical-align:top;">:</td><td><div>html</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">folder</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py/applications/scripting_project/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">function</td><td style="vertical-align:top;">:</td><td><div>posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">global_settings</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">app_folders</td><td style="vertical-align:top;">:</td><td><div>set([&#x27;/home/kalpish/web2py/applications/scripting_project/&#x27;, &#x27;/home/kalpish/web2py/applications/admin/&#x27;, &#x27;/home/kalpish/web2py/applications/welcome/&#x27;])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">applications_parent</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_args</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cmd_options</td><td style="vertical-align:top;">:</td><td><div>&lt;Values at 0x7f17b552e200: {&#x27;verbose&#x27;: False, &#x27;ip&#x27;: &#x27;127.0.0.1&#x27;, &#x27;debuglevel&#x27;: 30, &#x27;with_scheduler&#x27;: False, &#x27;ips&#x27;: [&#x27;127.0.1.1&#x27;], &#x27;shutdown_timeout&#x27;: 5, &#x27;taskbar&#x27;: False, &#x27;with_coverage&#x27;: False, &#x27;scheduler_groups&#x27;: None, &#x27;port&#x27;: 8000, &#x27;maxthreads&#x27;: None, &#x27;softcron&#x27;: False, &#x27;server_name&#x27;: &#x27;kalpish-INVALID&#x27;, &#x27;bpython&#x27;: False, &#x27;nogui&#x27;: False, &#x27;pid_filename&#x27;: &#x27;httpserver.pid&#x27;, &#x27;print_errors&#x27;: False, &#x27;extcron&#x27;: False, &#x27;runcron&#x27;: False, &#x27;run_system_tests&#x27;: False, &#x27;test&#x27;: None, &#x27;folder&#x27;: &#x27;/home/kalpish/web2py&#x27;, &#x27;config&#x27;: &#x27;&#x27;, &#x27;minthreads&#x27;: None, &#x27;shell&#x27;: None, &#x27;run&#x27;: &#x27;&#x27;, &#x27;log_filename&#x27;: &#x27;httpserver.log&#x27;, &#x27;profiler_dir&#x27;: None, &#x27;args&#x27;: [&#x27;&#x27;], &#x27;socket_timeout&#x27;: 5, &#x27;ssl_ca_certificate&#x27;: None, &#x27;scheduler&#x27;: None, &#x27;interfaces&#x27;: None, &#x27;ssl_private_key&#x27;: &#x27;&#x27;, &#x27;gae&#x27;: None, &#x27;password&#x27;: &#x27;&lt;ask&gt;&#x27;, &#x27;request_queue_size&#x27;: 5, &#x27;ssl_certificate&#x27;: &#x27;&#x27;, &#x27;cronjob&#x27;: False, &#x27;numthreads&#x27;: None, &#x27;quiet&#x27;: False, &#x27;import_models&#x27;: False, &#x27;timeout&#x27;: 10, &#x27;plain&#x27;: False, &#x27;nobanner&#x27;: False}&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">db_sessions</td><td style="vertical-align:top;">:</td><td><div>set([])</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">debugging</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">gluon_parent</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_jython</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_pypy</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_source</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">local_hosts</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>kalpish-INVALID</div></td></tr><tr><td><div>::1</div></td></tr><tr><td><div>127.0.1.1</div></td></tr><tr><td><div>::ffff:127.0.0.1</div></td></tr><tr><td><div>127.0.0.1</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">web2py_version</td><td style="vertical-align:top;">:</td><td><div>2.12.3-stable+timestamp.2015.08.19.00.18.03</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_https</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_local</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_restful</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_sheduler</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">is_shell</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">now</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 11, 19, 17, 53, 53, 646736)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_args</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">raw_extension</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">url</td><td style="vertical-align:top;">:</td><td><div>/scripting_project/c_controller/posting</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">utcnow</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 11, 19, 12, 23, 53, 646772)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">wsgi</td><td style="vertical-align:top;">:</td><td><div>&lt;gluon.main.LazyWSGI object at 0x7f17b015dc90&gt;</div></td></tr></table></div>'
+tRp58
+sS'frames'
+p59
+(lp60
+(dp61
+S'file'
+p62
+S'/home/kalpish/web2py/gluon/restricted.py'
+p63
+sS'dump'
+p64
+(dp65
+S'environment'
+p66
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AppConfig': <function AppConfig>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, ...}"
+p67
+sS'ccode'
+p68
+S'<code object <module> at 0x7f17b017db30, file "/...ing_project/controllers/c_controller.py", line 3>'
+p69
+ssS'lnum'
+p70
+I227
+sS'lines'
+p71
+(dp72
+I224
+S'            ccode = code'
+p73
+sI225
+S'        else:'
+p74
+sI226
+S'            ccode = compile2(code, layer)'
+p75
+sI227
+S'        exec ccode in environment'
+p76
+sI228
+S'    except HTTP:'
+p77
+sI229
+S'        raise'
+p78
+sI230
+S'    except RestrictedError:'
+p79
+sI231
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p80
+sI222
+S'    try:'
+p81
+sI223
+S'        if isinstance(code, types.CodeType):'
+p82
+ssS'call'
+p83
+S"(code='# -*- coding: utf-8 -*-\\n# try something like\\ndef...cals()\\n\\nresponse._vars=response._caller(posting)\\n', environment={'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'ASSIGNJS': <function ASSIGNJS>, 'AppConfig': <function AppConfig>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, ...}, layer='/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py')"
+p84
+sS'func'
+p85
+S'restricted'
+p86
+sa(dp87
+g62
+S'/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py'
+p88
+sg64
+(dp89
+sg70
+I142
+sg71
+(dp90
+I131
+S"            db.csv_upload.import_from_csv_file(open(path,'rb'))"
+p91
+sI132
+S'            query_to_retrive=db(db.csv_upload.c_id==auth.user_id).select(db.csv_upload.id.max())'
+p92
+sI133
+S'            query_to_retrive=str(query_to_retrive)'
+p93
+sI134
+S'            query_to_retrive=query_to_retrive.split()'
+p94
+sI135
+S'            id_retrived=query_to_retrive[1]'
+p95
+sI136
+S'            db(db.csv_upload.id==id_retrived).update(company_posting_id=cnt)'
+p96
+sI137
+S'            pass'
+p97
+sI138
+S'        session.flash=session.flag_add_more'
+p98
+sI139
+S"        response.flash='accepted'+ session.flag_add_more"
+p99
+sI140
+S'    return locals()'
+p100
+ssg83
+S'()'
+p101
+sg85
+S'<module>'
+p102
+sa(dp103
+g62
+S'/home/kalpish/web2py/gluon/globals.py'
+p104
+sg64
+(dp105
+S'self'
+p106
+S'undefined'
+p107
+sS'f'
+S'<function posting>'
+p108
+ssg70
+I412
+sg71
+(dp109
+I416
+S"        self.generic_patterns = ['*']"
+p110
+sI407
+S"        self.flash = ''            # used by the default view layout"
+p111
+sI408
+S'        self.meta = Storage()      # used by web2py_ajax.html'
+p112
+sI409
+S'        self.menu = []             # used by the default view layout'
+p113
+sI410
+S'        self.files = []            # used by web2py_ajax.html'
+p114
+sI411
+S'        self._vars = None'
+p115
+sI412
+S'        self._caller = lambda f: f()'
+p116
+sI413
+S'        self._view_environment = None'
+p117
+sI414
+S'        self._custom_commit = None'
+p118
+sI415
+S'        self._custom_rollback = None'
+p119
+ssg83
+S'(f=<function posting>)'
+p120
+sg85
+S'<lambda>'
+p121
+sa(dp122
+g62
+S'/home/kalpish/web2py/gluon/tools.py'
+p123
+sg64
+(dp124
+S'action'
+p125
+S'<function posting>'
+p126
+sS'a'
+S'()'
+p127
+sS'b'
+g45
+ssg70
+I3774
+sg71
+(dp128
+I3776
+S'            f.__name__ = action.__name__'
+p129
+sI3777
+S'            f.__dict__.update(action.__dict__)'
+p130
+sI3778
+S'            return f'
+p131
+sI3769
+S'                    flag = condition'
+p132
+sI3770
+S'                if not flag:'
+p133
+sI3771
+S'                    current.session.flash = self.messages.access_denied'
+p134
+sI3772
+S'                    return call_or_redirect('
+p135
+sI3773
+S'                        self.settings.on_failed_authorization)'
+p136
+sI3774
+S'                return action(*a, **b)'
+p137
+sI3775
+S'            f.__doc__ = action.__doc__'
+p138
+ssg83
+S'(*a=(), **b={})'
+p139
+sg85
+S'f'
+sa(dp140
+g62
+S'/home/kalpish/web2py/gluon/tools.py'
+p141
+sg64
+(dp142
+S'action'
+p143
+S'<function posting>'
+p144
+sS'a'
+S'()'
+p145
+sS'b'
+g45
+ssg70
+I3774
+sg71
+(dp146
+I3776
+S'            f.__name__ = action.__name__'
+p147
+sI3777
+S'            f.__dict__.update(action.__dict__)'
+p148
+sI3778
+S'            return f'
+p149
+sI3769
+S'                    flag = condition'
+p150
+sI3770
+S'                if not flag:'
+p151
+sI3771
+S'                    current.session.flash = self.messages.access_denied'
+p152
+sI3772
+S'                    return call_or_redirect('
+p153
+sI3773
+S'                        self.settings.on_failed_authorization)'
+p154
+sI3774
+S'                return action(*a, **b)'
+p155
+sI3775
+S'            f.__doc__ = action.__doc__'
+p156
+ssg83
+S'(*a=(), **b={})'
+p157
+sg85
+S'f'
+sa(dp158
+g62
+S'/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py'
+p159
+sg64
+(dp160
+S'session.flag_add_more'
+p161
+S'1'
+sS'global session'
+p162
+S"<Storage {'flag_add_more': 1, '_formkey[profile]...77ae8', '1a0b7eec-686d-42c9-b223-f8e55432a16b']}>"
+p163
+sS'global response'
+p164
+S"<Storage {'body': <cStringIO.StringO object at 0...7b016d230>, 'view': 'c_controller/posting.html'}>"
+p165
+sS'response.flash'
+p166
+S"<lazyT 'Success!'>"
+p167
+ssg70
+I139
+sg71
+(dp168
+I131
+S"            db.csv_upload.import_from_csv_file(open(path,'rb'))"
+p169
+sI132
+S'            query_to_retrive=db(db.csv_upload.c_id==auth.user_id).select(db.csv_upload.id.max())'
+p170
+sI133
+S'            query_to_retrive=str(query_to_retrive)'
+p171
+sI134
+S'            query_to_retrive=query_to_retrive.split()'
+p172
+sI135
+S'            id_retrived=query_to_retrive[1]'
+p173
+sI136
+S'            db(db.csv_upload.id==id_retrived).update(company_posting_id=cnt)'
+p174
+sI137
+S'            pass'
+p175
+sI138
+S'        session.flash=session.flag_add_more'
+p176
+sI139
+S"        response.flash='accepted'+ session.flag_add_more"
+p177
+sI140
+S'    return locals()'
+p178
+ssg83
+S'()'
+p179
+sg85
+S'posting'
+p180
+sasS'pyver'
+p181
+S'Python 2.7.6: /usr/bin/python (prefix: /usr)'
+p182
+sS'session'
+p183
+g57
+(S's\xf9\t\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">auth</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">expiration</td><td style="vertical-align:top;">:</td><td><div>3600</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">hmac_key</td><td style="vertical-align:top;">:</td><td><div>40328c97-5501-43e7-9725-2c9fe25b0a31</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_visit</td><td style="vertical-align:top;">:</td><td><div>datetime.datetime(2015, 11, 19, 17, 52, 15, 217306)</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">remember_me</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">email</td><td style="vertical-align:top;">:</td><td><div>company@kalpish.com</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">first_name</td><td style="vertical-align:top;">:</td><td><div>kalpish</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">id</td><td style="vertical-align:top;">:</td><td><div>50L</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">last_name</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_id</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">registration_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">reset_password_key</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_groups</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">4</td><td style="vertical-align:top;">:</td><td><div>company_group</div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flag_add_more</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">user_grp</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr></table></div>'
+tRp184
+sS'etype'
+p185
+S"<type 'exceptions.TypeError'>"
+p186
+sS'date'
+p187
+S'Thu Nov 19 17:53:53 2015'
+p188
+sS'response'
+p189
+g57
+(S's\xe0\x1d\x00\x00<div><table><tr><td style="font-weight:bold;vertical-align:top;">body</td><td style="vertical-align:top;">:</td><td><div>&lt;cStringIO.StringO object at 0x7f1777ec33b0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">cookies</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">session_id_scripting_project</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c<table><tr><td style="font-weight:bold;vertical-align:top;">comment</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">domain</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">expires</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">httponly</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">max-age</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">path</td><td style="vertical-align:top;">:</td><td><div>/</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">secure</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">version</td><td style="vertical-align:top;">:</td><td><div></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">delimiters</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>{{</div></td></tr><tr><td><div>}}</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">files</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">flash</td><td style="vertical-align:top;">:</td><td><div>Success!</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">form_label_separator</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">formstyle</td><td style="vertical-align:top;">:</td><td><div>bootstrap3_inline</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generic_patterns</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>*</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">google_analytics_id</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">headers</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">X-Powered-By</td><td style="vertical-align:top;">:</td><td><div>web2py</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">logo</td><td style="vertical-align:top;">:</td><td><div><a class="brand" id="web2py-logo"><b>Placement portal</b></a></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">menu</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div><table><tr><td><div>Home</div></td></tr><tr><td><div>False</div></td></tr><tr><td><div>/scripting_project/default/index</div></td></tr><tr><td><div><table></table></div></td></tr></table></div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">meta</td><td style="vertical-align:top;">:</td><td><div><table><tr><td style="font-weight:bold;vertical-align:top;">author</td><td style="vertical-align:top;">:</td><td><div>Your Name &lt;you@example.com&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">description</td><td style="vertical-align:top;">:</td><td><div>a cool new app</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">generator</td><td style="vertical-align:top;">:</td><td><div>Web2py Web Framework</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">keywords</td><td style="vertical-align:top;">:</td><td><div>web2py, python, framework</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">models_to_run</td><td style="vertical-align:top;">:</td><td><div><table><tr><td><div>^\\w+\\.py$</div></td></tr><tr><td><div>^c_controller/\\w+\\.py$</div></td></tr><tr><td><div>^c_controller/posting/\\w+\\.py$</div></td></tr></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">postprocessing</td><td style="vertical-align:top;">:</td><td><div><table></table></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_client</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_compression_level</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_expires</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_cookie_key</td><td style="vertical-align:top;">:</td><td><div>None</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_data_name</td><td style="vertical-align:top;">:</td><td><div>session_data_scripting_project</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_file</td><td style="vertical-align:top;">:</td><td><div>&lt;open file &#x27;/home/kalpish/web2py/applications/scripting_project/sessions/078/11c/127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c&#x27;, mode &#x27;rb+&#x27; at 0x7f17906559c0&gt;</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_filename</td><td style="vertical-align:top;">:</td><td><div>/home/kalpish/web2py/applications/scripting_project/sessions/127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_hash</td><td style="vertical-align:top;">:</td><td><div>386c8a7af8b01ed3a17bc855950f5f1e</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id</td><td style="vertical-align:top;">:</td><td><div>127.0.0.1-3418eee9-fba0-49a0-a26b-2c9511b08b4c</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_id_name</td><td style="vertical-align:top;">:</td><td><div>session_id_scripting_project</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_locked</td><td style="vertical-align:top;">:</td><td><div>True</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_masterapp</td><td style="vertical-align:top;">:</td><td><div>scripting_project</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_new</td><td style="vertical-align:top;">:</td><td><div>False</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">session_storage_type</td><td style="vertical-align:top;">:</td><td><div>file</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">status</td><td style="vertical-align:top;">:</td><td><div>200</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">subtitle</td><td style="vertical-align:top;">:</td><td><div></div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">title</td><td style="vertical-align:top;">:</td><td><div>Scripting Project</div></td></tr><tr><td style="font-weight:bold;vertical-align:top;">view</td><td style="vertical-align:top;">:</td><td><div>c_controller/posting.html</div></td></tr></table></div>'
+tRp190
+sS'locals'
+p191
+(dp192
+S'query_to_retrive'
+p193
+S"['MAX(csv_upload.id)', '27']"
+p194
+sS'query_filename'
+p195
+S'<Rows (1)>'
+p196
+sS'rows'
+p197
+S"['MAX(company_posting.id)', '29']"
+p198
+sS'cb10'
+p199
+S'<gluon.html.TR object>'
+p200
+sS'string'
+p201
+S"['company_posting.CSV', 'company_posting.CSV.a27d0c2b6a7714fc.706f7374696e672e637376.csv']"
+p202
+sS'cnt'
+p203
+S"'29'"
+p204
+sS'id_retrived'
+p205
+S"'27'"
+p206
+sS'form_posting'
+p207
+S'<gluon.sqlhtml.SQLFORM object>'
+p208
+sS'cb2'
+p209
+S'<gluon.html.TR object>'
+p210
+sS'cb3'
+p211
+S'<gluon.html.TR object>'
+p212
+sS'cb1'
+p213
+S'<gluon.html.TR object>'
+p214
+sS'cb6'
+p215
+S'<gluon.html.TR object>'
+p216
+sS'cb7'
+p217
+S'<gluon.html.TR object>'
+p218
+sS'cb4'
+p219
+S'<gluon.html.TR object>'
+p220
+sS'cb5'
+p221
+S'<gluon.html.TR object>'
+p222
+sS'path'
+p223
+S"'applications/scripting_project/uploads/company_p...g.CSV.a27d0c2b6a7714fc.706f7374696e672e637376.csv'"
+p224
+sS'cb8'
+p225
+S'<gluon.html.TR object>'
+p226
+sS'cb9'
+p227
+S'<gluon.html.TR object>'
+p228
+sS'cb11'
+p229
+S'<gluon.html.TR object>'
+p230
+sssS'traceback'
+p231
+S'Traceback (most recent call last):\n  File "/home/kalpish/web2py/gluon/restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py", line 142, in <module>\n  File "/home/kalpish/web2py/gluon/globals.py", line 412, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/kalpish/web2py/gluon/tools.py", line 3774, in f\n    return action(*a, **b)\n  File "/home/kalpish/web2py/gluon/tools.py", line 3774, in f\n    return action(*a, **b)\n  File "/home/kalpish/web2py/applications/scripting_project/controllers/c_controller.py", line 139, in posting\n    response.flash=\'accepted\'+ session.flag_add_more\nTypeError: cannot concatenate \'str\' and \'int\' objects\n'
+p232
+s.
