@@ -9,10 +9,13 @@
                            Company Name
                         </td>
                         <td >
-                            Profile
+                            CSV Status
+                        </td>
+                          <td >
+                            Posting Status 
                         </td>
                         <td>
-                           Apply
+                           DISPLAY
                         </td>
                     </tr>
                  {{for r in string:}}
@@ -24,8 +27,17 @@
                            {{=temp[0]}}
                         </td>
                         <td style="color:red">
-                             incomplete
+                             Incomplete
                         </td>
+                            {{if str(temp[2])=='True':}}
+                            <td style="color:green">
+                                Active
+                            </td>
+                               {{else:}}
+                             <td style="color:red">
+                                InActive
+                            </td>
+                            {{pass}}
                             <td>
                            <input type="checkbox" name="{{=temp[1]}}" value="{{=temp[1]}}">
                         </td>
@@ -45,13 +57,22 @@
                         
                  {{if r[0]=="," or r[-1]=="," or int(temp)!=-1: }}
                      <td style="color:red">  
-                     incomplete
+                     Incomplete
                      </td>
                     {{else:}}
-                        <td>
-                     complete
+                        <td style="color:green">
+                     Complete
                         </td>
                      {{pass}}
+                             {{if str(cname[5])=='True':}}
+                            <td style="color:green">
+                                Active
+                            </td>
+                               {{else:}}
+                             <td style="color:red">
+                                InActive
+                            </td>
+                            {{pass}}
                             <td>
                                 
                            <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}">
@@ -60,7 +81,7 @@
                 {{pass}}{{count=count+1}}
                     {{pass}}
                     <tr>
-                            <td colspan="3"><input type="submit" value="Submit"></td>
+                            <td colspan="4"><input type="submit" value="Submit"></td>
                    </tr>     
         </table>
     </div>

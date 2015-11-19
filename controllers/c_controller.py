@@ -93,6 +93,8 @@ def posting():
 #    else:
 #        session.flash="flag not set"
 #        response.flash="flag set"
+    db.company_posting.posted_on.writable=False
+    db.company_posting.posted_on.readable=False
     db.company_posting.c_id.writable=False
     db.company_posting.c_id.readable=False
     db.company_posting.display.writable=False

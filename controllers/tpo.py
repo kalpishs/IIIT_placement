@@ -5,10 +5,10 @@ def index():
 @auth.requires_login()
 @auth.requires_membership('TPO')
 def home():
-    query_filename = db(db.auth_user.id==db.company_posting.c_id).select(db.company_posting.CSV,db.auth_user.first_name,db.company_posting.id)
+    query_filename = db(db.auth_user.id==db.company_posting.c_id).select(db.company_posting.CSV,db.auth_user.first_name,db.company_posting.id,db.company_posting.status)
     string=str(query_filename)
     string=string.split()
-    query_rows=db((db.csv_upload.company_posting_id==db.company_posting.id)&(db.company_posting.c_id==db.auth_user.id)).select(db.csv_upload.Profile,db.csv_upload.Location,db.csv_upload.CTC,db.auth_user.first_name,db.company_posting.id,db.csv_upload.Bond_month)
+    query_rows=db((db.csv_upload.company_posting_id==db.company_posting.id)&(db.company_posting.c_id==db.auth_user.id)).select(db.csv_upload.Profile,db.csv_upload.Location,db.csv_upload.CTC,db.auth_user.first_name,db.company_posting.id,db.company_posting.status,db.csv_upload.Bond_month)
     rows=str(query_rows)
     rows=rows.split()
   
@@ -19,8 +19,8 @@ def home():
 def selected():
     x=dict(request.vars)
     l=x.keys()
-    #for ids_l in l:
-    # db(db.company_posting.id==ids_l).update(db.company_posting.display=True)
+    for ids_l in l:
+        db(db.company_posting.id==ids_l).update(display=True)
     session.flash=x.values()
 
     redirect(URL('tpo','home'))

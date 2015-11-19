@@ -73,7 +73,7 @@ def apply_for():
     courseid=db(db.student.s_id==auth.user_id).select(db.student.course_id)
     courseid=str(courseid)
     courseid=courseid.split()
-    rows=db((db.jobs_posted.job==db.company_posting.id)&(db.jobs_posted.course_id==courseid[1])&(db.company_posting.c_id==db.auth_user.id)).select(db.auth_user.first_name,db.company_posting.Profile,db.company_posting.id)
+    rows=db((db.jobs_posted.job==db.company_posting.id)&(db.jobs_posted.course_id==courseid[1])&(db.company_posting.c_id==db.auth_user.id)&(db.company_posting.display=True)).select(db.auth_user.first_name,db.company_posting.Profile,db.company_posting.id)
     string=str(rows)
     string=string.split("\r\n")
     string=string[1:-1]

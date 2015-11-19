@@ -11,7 +11,9 @@ db.define_table('company_posting',
                 Field('Job_discription','text'),
                 Field('ctc'),
                 Field('CSV','upload'),
-                Field('display','boolean',default=False)
+                Field('display','boolean',default=False),
+                Field('posted_on','datetime',default=request.now),
+                Field('status','boolean',default=True)
                )
 db.define_table('csv_upload',
                 Field('Profile'),

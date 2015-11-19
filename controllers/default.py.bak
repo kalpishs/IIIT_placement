@@ -16,6 +16,12 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
+    import datetime
+    now=datetime.datetime.now()
+    x=now+datetime.timedelta(-60)
+    rows=db(db.company_posting.posted_on<x).update(display=False)
+    rows=db(db.company_posting.posted_on<x).update(status=False)
+
     if auth.user:
         if auth.has_membership(5):
             redirect(URL('s_controller','student_home'))
@@ -24,7 +30,7 @@ def index():
         if auth.has_membership(27):
              redirect(URL('tpo','home'))
     #response.flash = T("")
-    return dict(message=T('Welcome to web2py!'))
+    return dict(message=T('Welcome Placement App'))
 
 def home():
     temp=request.args(0)

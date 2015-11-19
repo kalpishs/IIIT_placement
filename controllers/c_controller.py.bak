@@ -93,6 +93,8 @@ def posting():
 #    else:
 #        session.flash="flag not set"
 #        response.flash="flag set"
+    db.company_posting.posted_on.writable=False
+    db.company_posting.posted_on.readable=False
     db.company_posting.c_id.writable=False
     db.company_posting.c_id.readable=False
     db.company_posting.display.writable=False
@@ -149,7 +151,7 @@ def posting():
 #        max_id=int(query_for_posting_id[1])
 #        row_select_details=db(db.company_posting.id==max_id).select()
 #        form_posting=SQLFORM(db.company_posting)
-        #session.flag_posting=1
+#session.flag_posting=1
         redirect(URL('c_controller','company_home'))
         session.flash="old form"
         response.flash="old form"
