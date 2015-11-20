@@ -1,5 +1,3 @@
 {{extend 'mylayout.html'}}
 <h1>Student home</h1>
-<span><a href="{{=URL('s_controller','apply')}}">Apply<a></span>
-
 {{=form}}

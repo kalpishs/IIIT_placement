@@ -1,0 +1,9 @@
+{{extend 'mylayout.html'}}
+<form class="form-horizontal" method="post" action="{{=URL('spc_check')}}">
+    <lable class="control-label col-sm-3">SPC key</lable>
+    <div class="col-sm-9"><input class="form-control string" id="spc_val" name="spc_val"  type="text"><span class="help-block"></span></div>
+    <div class="form-group" id="submit_record__row" style="margin-left:30%;"><div class="col-sm-9 col-sm-offset-3" ><input class="btn btn-primary btn-default" value="Submit" type="submit"></div></div>
+</form>    
+<div class="clear123"></div>
+<div class="welcome123">
+</div>

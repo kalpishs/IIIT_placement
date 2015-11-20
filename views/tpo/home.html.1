@@ -12,7 +12,7 @@
                             CSV Status
                         </td>
                           <td >
-                            Posting Status
+                            Posting Status 
                         </td>
                         <td>
                            DISPLAY
@@ -23,7 +23,7 @@
                     {{r=r[1:]}}
                     <tr>
                         <td >
-                           {{temp=r.split(',')}}
+                           {{temp=r.split(',')}} 
                            {{=temp[0]}}
                         </td>
                         <td style="color:red">
@@ -38,7 +38,7 @@
                                 InActive
                             </td>
                             {{pass}}
-
+                       
                             <td>
                         {{if str(temp[-1])=='True':}}
                                 <input type="checkbox" name="{{=temp[1]}}" value="{{=temp[1]}}" checked="checked">
@@ -46,7 +46,7 @@
                             <input type="checkbox" name="{{=temp[1]}}" value="{{=temp[1]}}">
                         {{pass}}
                         </td>
-
+                        
                     </tr>
                       {{pass}}
                       {{pass}}
@@ -60,9 +60,9 @@
                         <td >
                            {{=cname[3]}}
                         </td>
-
+                        
                  {{if r[0]=="," or r[-1]=="," or int(temp)!=-1: }}
-                     <td style="color:red">
+                     <td style="color:red">  
                      Incomplete
                      </td>
                     {{else:}}
@@ -80,20 +80,20 @@
                             </td>
                             {{pass}}
                             <td>
-                           {{if str(cname[6])=='True':}}
+                           {{if str(cname[5])=='True':}}
                            <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" checked="checked">
                           {{else:}}
-                          <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" unchecked>
-                         {{pass}}
+                          <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" checked="unchecked">   
+                         {{pass}}un
                         </td>
                     </tr>
                 {{pass}}{{count=count+1}}
                     {{pass}}
                     <tr>
                             <td colspan="4"><input type="submit" value="Submit"></td>
-                   </tr>
+                   </tr>     
         </table>
     </div>
       </div>
-</form>
+</form>   
      <div class="clear123"></div>

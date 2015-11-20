@@ -1,0 +1,5 @@
+{{extend 'mylayout.html'}}
+<form class="form-horizontal" method="post" action="">
+    <lable class="control-label col-sm-3">SPC key</lable>
+    <div class="col-sm-9"><input class="form-control string" id="spc_val" name="spc_val" value="100" type="text"><span class="help-block"></span></div>
+</form>

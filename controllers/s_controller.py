@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # try something like
-def home(): 
+def home():
+    #if auth.requires_login()
     session.user_grp=request.args(0)
     message=session.user_grp
     login_form=auth.login()
@@ -104,4 +105,18 @@ def apply_form():
            
     session.flash=x.values()
     redirect(URL('s_controller','student_home'))
+    return locals()
+def spc():
+    x="spc"
+    return locals()
+def spc_check():
+    x=request.vars.spc_val
+    key="iiit@123"
+    if str(x)==key:
+        auth.add_membership(6)
+        redirect(URL('student_home'))
+    else:
+        session.flash="Invalid key"
+        response.flash="Invalid key"
+        redirect('spc')
     return locals()
