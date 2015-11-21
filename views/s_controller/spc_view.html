@@ -1,0 +1,51 @@
+{{extend 'mylayout.html'}}
+<div class="welcome123">
+    <div class="CSSTableGenerator" >
+                <table >
+                    <tr>
+                        <td>
+                           Roll number
+                        </td>
+                        <td >
+                           Name
+                        </td>
+                          <td >
+                            Branch
+                        </td>
+                        <td>
+                           Company
+                        </td>
+                    </tr>
+                 {{for r in query_display_select:}}
+                    
+                    {{
+                    temp=r.split(',')}}
+                    <tr>
+                        
+                        <td >
+                         {{=temp[1]}}
+                        </td>
+                        
+                        <td >
+                            {{=temp[0]}}
+                        </td>
+                        <td>{{=temp[2]}}</td>
+                        
+                        <td>
+                            {{for i in row:
+                               i=str(i)
+                            i=i.split(',')
+                            if i[0]==temp[3]:
+                            }}
+                            {{=i[1]}}
+                            {{break}}
+                            {{pass}}
+                        </td>
+                        
+                    </tr>
+                    {{pass}}
+        </table>
+    </div>
+      </div>
+</form>
+     <div class="clear123"></div>

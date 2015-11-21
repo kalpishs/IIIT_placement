@@ -1,3 +1,3 @@
 {{extend 'layout.html'}}
 <h1>This is the s_controller/reg_s.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+{{=s_reg}}

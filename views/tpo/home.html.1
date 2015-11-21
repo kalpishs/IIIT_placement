@@ -1,7 +1,6 @@
 {{extend 'mylayout.html'}}
 <h1>Welcome TPO Home</h1>
-
-<form method="post" name="sub_it" action="{{=URL('tpo','selected')}}">
+<form method="post" action="{{=URL('tpo','selected')}}">
 <div class="welcome123">
     <div class="CSSTableGenerator" >
                 <table >
@@ -13,13 +12,10 @@
                             CSV Status
                         </td>
                           <td >
-                            Posting Status
+                            Posting Status 
                         </td>
                         <td>
                            DISPLAY
-                        </td>
-                        <td>
-                           Send email
                         </td>
                     </tr>
                  {{for r in string:}}
@@ -27,8 +23,8 @@
                     {{r=r[1:]}}
                     <tr>
                         <td >
-                           {{temp=r.split(',')}}
-                           <a href="{{=URL('tpo','display_details',vars={'id':temp[1],'name':temp[0]})}}">{{=temp[0]}}</a>
+                           {{temp=r.split(',')}} 
+                           {{=temp[0]}}
                         </td>
                         <td style="color:red">
                              Incomplete
@@ -42,20 +38,15 @@
                                 InActive
                             </td>
                             {{pass}}
-
+                       
                             <td>
-                        {{if str(temp[3])=='True':}}
+                        {{if str(temp[-1])=='True':}}
                                 <input type="checkbox" name="{{=temp[1]}}" value="{{=temp[1]}}" checked="checked">
                                 {{else:}}
                             <input type="checkbox" name="{{=temp[1]}}" value="{{=temp[1]}}">
                         {{pass}}
                         </td>
-                        <td>
-                        <form name="send_email" method="post" action="{{=URL('tpo','email')}}">
-                           <input type="text" value="{{=temp[4]}}" name="emailid"  style="display:none;">
-                           <input type="submit"  value="Send Email" name="send_mail">
-                        </form>  
-                          </td>  
+                        
                     </tr>
                       {{pass}}
                       {{pass}}
@@ -65,16 +56,13 @@
                     temp=int(r.find(',,'))
                     cname=r.split(',')
                    }}
-                  
                  <tr>
                         <td >
-  <a href="{{=URL('tpo','display_details',vars={'id':cname[4],'name':cname[3]})}}">{{=cname[3]}}</a>
-
-                           
+                           {{=cname[3]}}
                         </td>
-
+                        
                  {{if r[0]=="," or r[-1]=="," or int(temp)!=-1: }}
-                     <td style="color:red">
+                     <td style="color:red">  
                      Incomplete
                      </td>
                     {{else:}}
@@ -92,26 +80,20 @@
                             </td>
                             {{pass}}
                             <td>
-                           {{if str(cname[6])=='True':}}
+                           {{if str(cname[5])=='True':}}
                            <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" checked="checked">
                           {{else:}}
-                          <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" unchecked>
-                         {{pass}}
+                          <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" checked="unchecked">   
+                         {{pass}}un
                         </td>
-                      <td>
-                       <form name="send_email" method="post" action="{{=URL('tpo','email')}}">
-                           <input type="text" value="{{=cname[7]}}" name="emailid"  style="display:none;">
-                           <input type="submit"  value="Send Email" name="send_mail">
-                        </form>  
-                          </td> 
                     </tr>
                 {{pass}}{{count=count+1}}
                     {{pass}}
                     <tr>
-                            <td colspan="5"><input type="submit" value="Submit"></td>
-                   </tr>
+                            <td colspan="4"><input type="submit" value="Submit"></td>
+                   </tr>     
         </table>
     </div>
       </div>
-</form>
+</form>   
      <div class="clear123"></div>

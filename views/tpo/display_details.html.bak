@@ -1,0 +1,51 @@
+{{extend 'mylayout.html'}}
+<h2 style="text-align: center;">{{=y}} company details are:</h2>
+
+<div class="welcome123">
+    <div class="CSSTableGenerator" >
+                <table >
+                    <tr>
+                        <td>
+                           Company Name
+                        </td>
+                        {{if flag==1:}}
+                        <td >
+                           CSV Profile
+                        </td>
+                          <td >
+                          CSV location
+                        </td>
+                        <td>
+                          CSV Ctc
+                        </td>
+                        <td>
+                          Csv bond
+                        </td>
+                        {{else:}}
+                        <td >
+                            Profile
+                        </td>
+                          <td >
+                           location
+                        </td>
+                        <td>
+                           Ctc
+                        </td>
+                        {{pass}}
+                    </tr>
+                    <tr>
+                        <td>{{=y}}</td>
+                        {{if flag==1:}}
+                        <td>{{=query_csv[0].Profile}}</td>
+                         <td>{{=query_csv[0].Location}}</td>
+                        <td>{{=query_csv[0].CTC}}</td>
+                        <td>{{=query_csv[0].Bond_month}}</td>
+                        {{else:}}
+                        <td>{{=query_rows[0].Profile}}</td>
+                        <td>{{=query_rows[0].Location}}</td>
+                        <td>{{=query_rows[0].ctc}}</td>
+                        {{pass}}
+                    </tr>
+        </table>
+    </div>
+</div>

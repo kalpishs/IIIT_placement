@@ -2,4 +2,3 @@
 <h1>This is the c_controller/home.html template</h1>
 
 {{=login_form}}
-<a href="{{=URL('c_controller','reg_c')}}">company register</a>

@@ -9,8 +9,11 @@ db.define_table('company_posting',
                 Field('Location',requires=IS_NOT_EMPTY()),
                 Field('Profile',requires=IS_NOT_EMPTY()),
                 Field('Job_discription','text'),
-                 Field('ctc'),
-                Field('CSV','upload')
+                Field('ctc'),
+                Field('CSV','upload'),
+                Field('display','boolean',default=False),
+                Field('posted_on','datetime',default=request.now),
+                Field('staus','boolean',default=True)
                )
 db.define_table('csv_upload',
                 Field('Profile'),
