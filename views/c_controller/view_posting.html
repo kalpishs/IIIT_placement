@@ -1,0 +1,38 @@
+{{extend 'mylayout.html'}}
+<h2 style="text-align: center;">{{=name[0].first_name}} details are:</h2>
+<div class="welcome123">
+    <div class="CSSTableGenerator" >
+                <table >
+                    <tr>
+                        <td>
+                           Sno.
+                        </td>
+                        <td >
+                            Profile
+                        </td>
+                        <td>Location</td>
+                          <td >
+                            Job description
+                        </td>
+                        <td>
+                          CTC	
+                        </td>
+                        <td>
+                           Posted on
+                        </td>
+                    </tr>
+                    {{count=1}}
+                    {{for r in row:}}
+                    <tr>
+                        <td>{{=count}}</td>
+                        <td>{{=r.Profile}}</td>
+                        <td>{{=r.Location}}</td>
+                        <td>{{=r.Job_discription}}</td>
+                        <td>{{=r.ctc}}</td>
+                        <td>{{=r.posted_on}}</td>
+                    </tr>
+                    {{count=count+1}}
+                    {{pass}}
+        </table>
+    </div>
+</div>

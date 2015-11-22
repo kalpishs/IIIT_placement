@@ -59,53 +59,12 @@
                     </tr>
                       {{pass}}
                       {{pass}}
-                                {{count=0
+             {{count=0
                     for r in rows:
-                    if count!=0:
                     temp=int(r.find(',,'))
                     cname=r.split(',')
-                   }}
-                  
-                 <tr>
-                        <td >
-  <a href="{{=URL('tpo','display_details',vars={'id':cname[4],'name':=cname[3]})}}">{{=cname[3]}}</a>
-
-                           
-                        </td>
-
-                 {{if r[0]=="," or r[-1]=="," or int(temp)!=-1: }}
-                     <td style="color:red">
-                     Incomplete
-                     </td>
-                    {{else:}}
-                        <td style="color:green">
-                     Complete
-                        </td>
-                     {{pass}}
-                             {{if str(cname[5])=='True':}}
-                            <td style="color:green">
-                                Active
-                            </td>
-                               {{else:}}
-                             <td style="color:red">
-                                InActive
-                            </td>
-                            {{pass}}
-                            <td>
-                           {{if str(cname[6])=='True':}}
-                           <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" checked="checked">
-                          {{else:}}
-                          <input type="checkbox" name="{{=cname[4]}}" value="{{=cname[4]}}" unchecked>
-                         {{pass}}
-                        </td>
-                      <td>
-                       <form name="send_email" method="post" action="{{=URL('tpo','email')}}">
-                           <input type="text" value="{{=cname[7]}}" name="emailid"  style="display:none;">
-                           <input type="submit"  value="Send Email" name="send_mail">
-                        </form>  
-                          </td> 
-                    </tr>
-                {{pass}}{{count=count+1}}
+                    }}
+                    {{=cname[7]}},
                     {{pass}}
                     <tr>
                             <td colspan="5"><input type="submit" value="Submit"></td>

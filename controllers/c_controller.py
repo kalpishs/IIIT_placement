@@ -171,3 +171,10 @@ def posting():
         pass
         #response.flash= session.flag_add_more
     return locals()
+@auth.requires_login()
+@auth.requires_membership('company_group')
+def view_posting():
+    row=db(db.company_posting.c_id==auth.user_id).select()
+    name=db(db.auth_user.id==auth.user_id).select(db.auth_user.first_name)
+    
+    return locals()

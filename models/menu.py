@@ -39,7 +39,8 @@ elif auth.has_membership('student_group') and auth.has_membership('spc_group'):
 elif auth.has_membership('company_group'):
     response.menu= [
          (T('Home'), False, URL('default', 'index'), []),
-        (T('New Posting'), False,URL('c_controller','posting'),[])
+        (T('New Posting'), False,URL('c_controller','posting'),[]),
+        (T('View Posting'), False,URL('c_controller','view_posting'),[])
         ]
 elif auth.has_membership('TPO'):
     response.menu = [
