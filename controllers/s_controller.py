@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # try something like
 def home():
+
     if auth.has_membership('student_group'):
         redirect(URL('student_home'))
     if auth.has_membership('company_group'):
@@ -111,6 +112,7 @@ def apply_form():
     session.flash=x.values()
     redirect(URL('s_controller','student_home'))
     return locals()
+
 @auth.requires_login()
 @auth.requires_membership('student_group')
 def spc():
@@ -141,3 +143,4 @@ def spc_view():
     row=row.split('\r\n')
     row=row[1:]
     return locals()
+

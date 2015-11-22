@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.AttributeError'> 'str' object has no attribute 'slpit'"
+p3
+sS'layer'
+p4
+S'/home/ayush/web2py/applications/IIIT_placement/controllers/tpo.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# try something like\ndef index():\n    return dict(message="hello from tpo.py")\n@auth.requires_login()\n@auth.requires_membership(\'TPO\')\ndef home():\n    query_filename = db(db.auth_user.id==db.company_posting.c_id).select(db.company_posting.CSV,db.auth_user.first_name,db.company_posting.id,db.company_posting.status,db.company_posting.display)\n    string=str(query_filename)\n    string=string.split()\n    query_rows=db((db.csv_upload.company_posting_id==db.company_posting.id)&(db.company_posting.c_id==db.auth_user.id)).select(db.csv_upload.Profile,db.csv_upload.Location,db.csv_upload.CTC,db.auth_user.first_name,db.company_posting.id,db.company_posting.status,db.company_posting.display,db.csv_upload.Bond_month)\n    rows=str(query_rows)\n    rows=rows.split()\n  \n    #   if string[1]==\'""\':\n    #db((db.csv_upload.company_posting_id==db.company_posting.id/)&(db.company_posting.c_id==db.auth_user.id)).select()\n    #x="home"\n    return locals()\ndef selected():\n    x=dict(request.vars)\n    l=x.keys()\n    rows1=db(db.company_posting).select(db.company_posting.id)\n    rows=str(rows1)\n    rows=rows.slpit()\n    rows=rows[1:]\n    for ids_l in rows:\n        if ids_l in l:\n            db(db.company_posting.id==ids_l).update(display=True)\n        else:\n            db(db.company_posting.id==ids_l).update(display=False)\n        \n    session.flash=x.values()\n\n    redirect(URL(\'tpo\',\'home\'))\n    return locals()\n\nresponse._vars=response._caller(selected)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "/home/ayush/web2py/gluon/restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "/home/ayush/web2py/applications/IIIT_placement/controllers/tpo.py", line 37, in <module>\n  File "/home/ayush/web2py/gluon/globals.py", line 412, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/ayush/web2py/applications/IIIT_placement/controllers/tpo.py", line 24, in selected\n    rows=rows.slpit()\nAttributeError: \'str\' object has no attribute \'slpit\'\n'
+p11
+s.

@@ -30,6 +30,7 @@ if auth.has_membership('student_group') and  not auth.has_membership('spc_group'
         (T('Apply'), False, URL('s_controller','apply_for'),[]
         ),(T('Spc'), False,URL('s_controller','spc'),[])
     ]
+
 elif auth.has_membership('student_group') and auth.has_membership('spc_group'):
     response.menu= [
          (T('Home'), False, URL('default', 'index'), []),
@@ -51,7 +52,6 @@ else:
     (T('Home'), False, URL('default', 'index'), []),
     (T('Student Register'), False, URL('s_controller', 'reg_s'), []),
     (T('Company Register'), False, URL('c_controller', 'reg_c'), [])
-
     ]
 DEVELOPMENT_MENU = True
 
