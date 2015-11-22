@@ -1,3 +1,0 @@
-{{extend 'mylayout.html'}}
-<h1>Student home</h1>
-{{=form}}
