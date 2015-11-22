@@ -1,5 +1,7 @@
 {{extend 'mylayout.html'}}
-<h1>This is the c_controller/company_home.html template</h1>
-{{=BEAUTIFY(response._vars)}}
-<a href="{{=URL('c_controller','posting')}}">post a job</a>
+
 <br/>
+<div class="welcome123" style="width:80%; margin:auto;">
+    Welcome
+</div>
+<div class="clear123"></div>

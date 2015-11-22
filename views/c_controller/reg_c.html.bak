@@ -1,3 +1,6 @@
-{{extend 'layout.html'}}
-<h1>This is the c_controller/reg_c.html template</h1>
-{{=c_reg}}
+{{extend 'mylayout.html'}}
+<br/>
+<div class="welcome123" style="width:80%; margin:auto;">
+    {{=c_reg}}
+</div>
+<div class="clear123"></div>

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 # try something like
 def home(): 
+    if auth.has_membership('student_group'):
+        redirect(URL('s_controller','student_home'))
+    if auth.has_membership('company_group'):
+        redirect(URL('c_controller','company_home'))
+    if auth.has_membership('TPO'):
+        redirect(URL('tpo','home'))
     auth.settings.register_next = URL('c_controller','after_reg', args='company')
     session.user_grp=request.args(0)
     message=session.user_grp
@@ -93,6 +99,8 @@ def posting():
 #    else:
 #        session.flash="flag not set"
 #        response.flash="flag set"
+    db.company_posting.status.writable=False
+    db.company_posting.status.readable=False
     db.company_posting.posted_on.writable=False
     db.company_posting.posted_on.readable=False
     db.company_posting.c_id.writable=False
@@ -100,27 +108,29 @@ def posting():
     db.company_posting.display.writable=False
     db.company_posting.display.readable=False
     form_posting=SQLFORM(db.company_posting)
-    cb1=TR(LABEL('B.Tech (CSE)',_class='branch'), INPUT(_name='bcse',value=False,_type='checkbox'))
+    #TR(div(_class="form-group",_id="company_posting_Location__row"))
+    cb1=TR(LABEL('B.Tech (CSE)',_class='control-label col-sm-3'), INPUT(_name='bcse',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb1)
-    cb2=TR(LABEL('B.Tech (ECE)',_class='branch'), INPUT(_name='bece',value=False,_type='checkbox'))
+
+    cb2=TR(LABEL('B.Tech (ECE)',_class='control-label col-sm-3'), INPUT(_name='bece',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb2)
-    cb3=TR(LABEL('M.Tech (CSE)',_class='branch'), INPUT(_name='mcse',value=False,_type='checkbox'))
+    cb3=TR(LABEL('M.Tech (CSE)',_class='control-label col-sm-3'), INPUT(_name='mcse',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb3)
-    cb4=TR(LABEL('M.Tech (CSIS)',_class='branch'), INPUT(_name='mcsis',value=False,_type='checkbox'))
+    cb4=TR(LABEL('M.Tech (CSIS)',_class='control-label col-sm-3'), INPUT(_name='mcsis',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb4)
-    cb5=TR(LABEL('M.Tech (CL)',_class='branch'), INPUT(_name='mcl',value=False,_type='checkbox'))
+    cb5=TR(LABEL('M.Tech (CL)',_class='control-label col-sm-3'), INPUT(_name='mcl',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb5)
-    cb6=TR(LABEL('M.Tech (VLSI)',_class='branch'), INPUT(_name='mvlsi',value=False,_type='checkbox'))
+    cb6=TR(LABEL('M.Tech (VLSI)',_class='control-label col-sm-3'), INPUT(_name='mvlsi',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb6)
-    cb7=TR(LABEL('M.Tech (CASE)',_class='branch'), INPUT(_name='mcase',value=False,_type='checkbox'))
+    cb7=TR(LABEL('M.Tech (CASE)',_class='control-label col-sm-3'), INPUT(_name='mcase',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb7)
-    cb8=TR(LABEL('M.Tech (Bio Infomatics)',_class='branch'), INPUT(_name='mbio',value=False,_type='checkbox'))
+    cb8=TR(LABEL('M.Tech (Bio Infomatics)',_class='control-label col-sm-3'), INPUT(_name='mbio',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb8)
-    cb9=TR(LABEL('MS (CSE)',_class='branch'), INPUT(_name='mscse',value=False,_type='checkbox'))
+    cb9=TR(LABEL('MS (CSE)',_class='control-label col-sm-3'), INPUT(_name='mscse',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb9)
-    cb10=TR(LABEL('MS (ECE)',_class='branch'), INPUT(_name='msece',value=False,_type='checkbox'))
+    cb10=TR(LABEL('MS (ECE)',_class='control-label col-sm-3'), INPUT(_name='msece',_class='col-sm-9',value=False,_type='checkbox'))
     form_posting[0].insert(-1,cb10)
-    cb11=TR(LABEL('add More',_id='l_add_more',_class='add_more_lable'), INPUT(_name='add_more',value=False,_type='checkbox',_id='add_more'))
+    cb11=TR(LABEL('add More',_id='l_add_more',_class='control-label col-sm-3'), INPUT(_name='add_more',_class='col-sm-9',value=False,_type='checkbox',_id='add_more'))
     form_posting[0].insert(-1,cb11)
     # if form_posting.process(onvalidation=myvalid).accepted:
     #    session.flash='accepted'
@@ -136,7 +146,7 @@ def posting():
             pass
             #flaging
         else:
-            path=str("applications/scripting_project/uploads/"+string[1])
+            path=str("applications/IIIT_placement/uploads/"+string[1])
             db.csv_upload.import_from_csv_file(open(path,'rb'))
             query_to_retrive=db(db.csv_upload.c_id==auth.user_id).select(db.csv_upload.id.max())
             query_to_retrive=str(query_to_retrive)
@@ -160,4 +170,11 @@ def posting():
 #        response.flash="new form"
         pass
         #response.flash= session.flag_add_more
+    return locals()
+@auth.requires_login()
+@auth.requires_membership('company_group')
+def view_posting():
+    row=db(db.company_posting.c_id==auth.user_id).select()
+    name=db(db.auth_user.id==auth.user_id).select(db.auth_user.first_name)
+    
     return locals()

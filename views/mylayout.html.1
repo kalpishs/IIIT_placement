@@ -20,47 +20,46 @@
     <body>
         <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
         <div class="flash alert alert-dismissable">{{=response.flash or ''}}</div>
-        <div class="wrapper"> 
+        <div class="wrapper123"> 
   
   <!-- Header Starts -->
-  <div class="header">
-    <div class="header-container">
-      <div class="logo"> <a href="#">Placement IIIT</a> </div>
-      <div class="toll-free">
+  <div class="header123">
+    <div class="header-container123">
+      <div class="logo123"> <a href="#">Placement IIIT</a> </div>
+      <div class="toll-free123">
         <p>International Institute of Information Technology, Hyderabad</p>
       </div>
-      <div class="clear"></div>
+      <div class="clear123"></div>
     </div>
   </div>
- <div class="nav">
-    <div class="nav-in">
-      <ul>
-        <li class="last"><a href="#">Home </a></li>
-        <li><a href="#">About us </a></li>
-        <li><a href="#">Services </a></li>
-        <li><a href="#">Careers </a></li>
-        <li><a href="#">Blog </a></li>
-        <li class="no_bg ped"><a href="#">Contact us</a></li>
-      </ul>
-       <ul class="nav navbar-nav navbar-right" style="position: relative;">
-            {{='auth' in globals() and auth.navbar('Welcome',mode='dropdown') or ''}}
-          </ul> 
-      <div class="clear"></div>
+ <div class="nav123">
+    <div class="nav-in123">
+        <ul>
+            {{if response.menu:}}
+          {{=MENU(response.menu, _class='nav123',li_class='last123',ul_class='nav-in123')}}
+          {{pass}}
+        </ul> 
+      <div class="clear123"></div>
     </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse" style="float:right;width:auto; min-width:200px; color: #333333;">
+             <ul class="nav navbar-nav navbar-right" style="color: #333333;">
+           {{='auth' in globals() and auth.navbar(mode='dropdown') or ''}}
+          </ul>
+        </div>
   </div>
-  <div class="container">
-    <div class="container-in"> <img src="images/container-bg.gif" width="940" height="327" alt="img" />
+  <div class="container123">
+    <div class="container-in123"> <img src="{{=URL('static','images/container-bg.gif')}}" width="900" aling="center" height="310" alt="IIIT Placements" />
     </div>
     </div>
-    <div class="container">
+    <div class="container123">
         {{include}}
     </div>
-    <div class="footer">
-    <div class="footer-in">
-      <div class="copy">
+    <div class="footer123">
+    <div class="footer-in123">
+      <div class="copy123">
         <p>Copyright &copy; 2015 IIITWebTeam. All rights reserved. Design by <a href="" target="_blank" rel="nofollow">Kalpish &amp; ayush</a></p>
       </div>
-      <div class="clear"></div>
+      <div class="clear123"></div>
     </div>
   </div>        
         <!-- The javascript =============================== -->

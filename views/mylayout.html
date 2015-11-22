@@ -20,8 +20,8 @@
     <body>
         <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
         <div class="flash alert alert-dismissable">{{=response.flash or ''}}</div>
-        <div class="wrapper123"> 
-  
+        <div class="wrapper123">
+
   <!-- Header Starts -->
   <div class="header123">
     <div class="header-container123">
@@ -38,7 +38,7 @@
             {{if response.menu:}}
           {{=MENU(response.menu, _class='nav123',li_class='last123',ul_class='nav-in123')}}
           {{pass}}
-        </ul> 
+        </ul>
       <div class="clear123"></div>
     </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse" style="float:right;width:auto; min-width:200px; color: #333333;">
@@ -48,7 +48,7 @@
         </div>
   </div>
   <div class="container123">
-    <div class="container-in123"> <img src="../static/images/container-bg.gif" width="900" aling="center" height="310" alt="IIIT Placements" />
+    <div class="container-in123"> <img src="{{=URL('static','images/container-bg.gif')}}" width="900" aling="center" height="310" alt="IIIT Placements" />
     </div>
     </div>
     <div class="container123">
@@ -61,7 +61,7 @@
       </div>
       <div class="clear123"></div>
     </div>
-  </div>        
+  </div>
         <!-- The javascript =============================== -->
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>

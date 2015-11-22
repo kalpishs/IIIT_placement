@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 # try something like
 def home():
-    #if auth.requires_login()
+
+    if auth.has_membership('student_group'):
+        redirect(URL('student_home'))
+    if auth.has_membership('company_group'):
+        redirect(URL('c_controller','company_home'))
+    if auth.has_membership('TPO'):
+        redirect(URL('tpo','home'))
     session.user_grp=request.args(0)
     message=session.user_grp
     login_form=auth.login()
@@ -106,9 +112,14 @@ def apply_form():
     session.flash=x.values()
     redirect(URL('s_controller','student_home'))
     return locals()
+
+@auth.requires_login()
+@auth.requires_membership('student_group')
 def spc():
     x="spc"
     return locals()
+@auth.requires_login()
+@auth.requires_membership('student_group')
 def spc_check():
     x=request.vars.spc_val
     key="iiit@123"
@@ -120,3 +131,16 @@ def spc_check():
         response.flash="Invalid key"
         redirect('spc')
     return locals()
+@auth.requires_login()
+@auth.requires_membership('spc_group')
+def spc_view():
+    query_display_select1=db((db.student_select.sid==db.auth_user.id)&(db.student_select.posting_id==db.company_posting.id)&(db.student_select.sid==db.student.s_id)&(db.student.course_id==db.course.id)&(db.company_posting.status==True)).select(db.auth_user.first_name,db.student.roll_num,db.course.course_name,db.company_posting.c_id)
+    query_display_select=str(query_display_select1)
+    query_display_select=query_display_select.split('\r\n')
+    query_display_select=query_display_select[1:-1]
+    row=db(db.auth_user).select(db.auth_user.id,db.auth_user.first_name)
+    row=str(row)
+    row=row.split('\r\n')
+    row=row[1:]
+    return locals()
+
